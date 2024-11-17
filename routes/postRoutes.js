@@ -34,4 +34,18 @@ router.post('/', (req, res) => {
     });
 });
 
+//Para obtener todos los posts de un autor específico
+router.get('/autor/:autorID', (req, res) => {
+    const autorID = req.params.autorID;
+    const query = `SELECT * FROM posts WHERE autor_id = ? `;
+    db.query(query, [autorID], (err, results) => {
+        if (err) {
+            console.error('Error al obtener posts del autor:', err);
+            res.status(500).send('Error al obtener posts del autor');
+            return;
+        }
+        res.json(results);
+    });
+});
+
 export default router;
