@@ -1,5 +1,5 @@
 import express from 'express';
-import '../config/db.js';
+import db from '../config/db.js';
 
 const router = express.Router();
 
@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     SELECT posts.*, autores.nombre AS autor_nombre
     FROM posts
     JOIN autores ON posts.autor_id = autores.id`;
-db.query(query, (req, res) => {
+db.query(query, (err, results) => {
     if (err) {
         console.error('Error al obtener el post;', err)
         res.status(500).send('Error al obtener posts');
@@ -33,3 +33,5 @@ router.post('/', (req, res) => {
         res.status(201).json({id: result.insertID, titulo, descripcion, categoria, autor_id });
     });
 });
+
+export default router;

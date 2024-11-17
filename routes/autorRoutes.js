@@ -1,5 +1,5 @@
 import express from 'express';
-import db from './config/db.js';
+import db from '../config/db.js';
 
 const router = express.Router();
 
@@ -28,3 +28,5 @@ router.post('/', (req, res) => {
         res.status(201).json({id: result.insertID, nombre, email, imagen});
     });
 });
+
+export default router;
